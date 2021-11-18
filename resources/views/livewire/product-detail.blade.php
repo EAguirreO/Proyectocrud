@@ -29,7 +29,7 @@
             <h3 class="fw-bold fs-1">S/. {{$producto->precio}}</h3>
             <h4>{{$producto->descripcion}}</h4>
             <h5>Stock: {{$producto->stock}}</h5>
-            <a href="#" class="btn btn-success" wire::click.prevent="store({{$producto->id}}, '{{$producto->nombre}}', {{$producto->precio}})">Agregar al carrito</a>
+            <button class="btn btn-success" wire:click.prevent="store({{$producto->id}}, '{{$producto->nombre}}', {{$producto->precio}})">Agregar al carrito</button>
             <button wire:click="redireccionarVistaCatalogo()" class="btn btn-primary">Regresar</button>
         </div>
     </div>

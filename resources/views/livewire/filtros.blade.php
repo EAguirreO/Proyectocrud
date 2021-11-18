@@ -53,17 +53,21 @@
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4" >
             @foreach ($productos as $item)
                 <div class="col" style="margin-bottom: 20px;">
-                    <div class="card mx-auto" style="width: 100%; cursor: pointer;" wire:click="redireccionarVistaProductoDetalle({{$item->id}})">
-                        <img src="{{asset($item->imagen)}}" class="card-img-top img-fluid" style="width: 100%; height: 15vw; object-fit: cover;" alt="">
+                    <div class="card mx-auto" style="width: 100%;">
+                        <img wire:click="redireccionarVistaProductoDetalle({{$item->id}})" src="{{asset($item->imagen)}}" class="card-img-top img-fluid" style="width: 100%; height: 15vw; object-fit: cover; cursor: pointer;" alt="">
                         <div class="card-body">
-                            <h5 class="card-title">Nombre: {{$item->nombre}}</h5>
-                            <p class="card-text">Descripcion: {{$item->descripcion}}</p>
-                            <p class="card-text">Precio: {{$item->precio}}</p>
-                            <div class="d-flex justify-content-between">
-                                <p class="card-text">Estado: {{$item->estado}}</p>
-                                <p class="card-text">Stock: {{$item->stock}}</p>
+                            <div style="cursor: pointer;" wire:click="redireccionarVistaProductoDetalle({{$item->id}})">
+                                <h5 class="card-title">Nombre: {{$item->nombre}}</h5>
+                                <p class="card-text">Descripcion: {{$item->descripcion}}</p>
+                                <p class="card-text">Precio: {{$item->precio}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="card-text">Estado: {{$item->estado}}</p>
+                                    <p class="card-text">Stock: {{$item->stock}}</p>
+                                </div>
                             </div>
-                            <a class="btn btn-danger" href="#" wire:click.prevent="store({{$item->id}}, '{{$item->nombre}}',{{$item->precio}})">Agregar al carrito</a>
+                            <div class="d-flex justify-content-center">
+                                <a class="btn btn-danger" href="#" wire:click.prevent="store({{$item->id}}, '{{$item->nombre}}',{{$item->precio}})">Agregar al carrito</a>
+                            </div>
                         </div>
                     </div>
                 </div>
