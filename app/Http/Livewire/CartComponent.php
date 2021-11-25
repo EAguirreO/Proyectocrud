@@ -7,6 +7,11 @@ use Cart;
 
 class CartComponent extends Component
 {
+    // public $products;
+
+    // public function mount(){
+    //     $this->products = [];
+    // }
     public function increaseQuantity($rowId){
         $product = Cart::instance('cart')->get($rowId);
         $qty = $product->qty + 1;

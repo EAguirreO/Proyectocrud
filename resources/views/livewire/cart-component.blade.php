@@ -2,6 +2,37 @@
 <link href="{{asset('css/cart-vista.css')}}" rel="stylesheet">
 @endsection
 <div>
+    @php
+        // dd(Cart::instance('cart')->content());
+        // if(Cart::instance('cart')->count() > 0){
+        // SDK de Mercado Pago
+        require base_path('/vendor/autoload.php');
+        // Agrega credenciales
+        MercadoPago\SDK::setAccessToken(config('services.mercadopago.token'));
+
+        // Crea un objeto de preferencia
+        $preference = new MercadoPago\Preference();
+
+        // Crea un ítem en la preferencia
+
+        foreach (Cart::instance('cart')->content() as $product) {
+            # code...
+            // echo $product;
+            $item = new MercadoPago\Item();
+            $item->title = $product->model->nombre;
+            $item->quantity = $product->qty;
+            $item->unit_price = $product->model->precio;
+
+            $products[] = $item;
+        }
+
+        if(!empty($products)){
+
+            $preference->items = $products;
+            $preference->save();
+        }
+        // }
+    @endphp
     <div class="container">
         @if (Session::has('success_message'))
             <div class="alert alert-success" role="alert">
@@ -41,8 +72,15 @@
                     </table>
                 </div>
             @endforeach
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-between mb-4">
                 <button class="btn btn-danger">Limpiar carrito</button>
+                @if (Auth::check())
+                <div class="cho-container">
+                    
+                </div>
+                @else
+                    <a href="/login" class="btn btn-info text-white" style="background-color: #009ee3">Pagar</a>
+                @endif
             </div>
         @else
             <p>No hay productos en el carrito</p>
@@ -69,4 +107,29 @@
             </div> --}}
         </div>
     </div>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+    <script>
+        if(!empty($products)){
+        // Agrega credenciales de SDK
+          const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
+                locale: 'es-PE'
+          });
+        
+        // if(!isset($preference)){
+          // Inicializa el checkout
+          mp.checkout({
+              preference: {
+                  id: '{{ $preference->id }}'
+              },
+              render: {
+                    container: '.cho-container', // Indica el nombre de la clase donde se mostrará el botón de pago
+                    label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+              }
+            });
+        // }
+        }
+
+    </script>
 </div>

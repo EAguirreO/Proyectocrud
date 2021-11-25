@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Features;
 
 return [
@@ -62,6 +63,15 @@ return [
     */
 
     'home' => RouteServiceProvider::HOME,
+    // 'home' => function(){
+    //     if (Auth::user()->utype == 'ADMIN') {
+    //         return route('admin.dashboard');
+    //     }
+    //     if(Auth::user()->utype == 'USER'){
+    //         return route('vistaCatalogo');
+    //     }
+
+    // },
 
     /*
     |--------------------------------------------------------------------------
