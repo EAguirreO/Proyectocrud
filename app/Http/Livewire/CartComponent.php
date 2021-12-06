@@ -12,11 +12,15 @@ class CartComponent extends Component
     // public function mount(){
     //     $this->products = [];
     // }
+
+    protected $listeners = ['refrescarComponent'];
+
     public function increaseQuantity($rowId){
         $product = Cart::instance('cart')->get($rowId);
         $qty = $product->qty + 1;
         Cart::instance('cart')->update($rowId, $qty);
         $this->emitTo('cart-count-component', 'refreshComponent');
+        // $this->emitSelf('refrescarComponent');
     }
 
     public function decreaseQuantity($rowId){
@@ -24,6 +28,7 @@ class CartComponent extends Component
         $qty = $product->qty - 1;
         Cart::instance('cart')->update($rowId, $qty);
         $this->emitTo('cart-count-component', 'refreshComponent');
+        // $this->emitSelf('refrescarComponent');
     }
 
     public function destroy($rowId){

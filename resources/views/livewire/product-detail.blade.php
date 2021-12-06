@@ -1,5 +1,8 @@
 <div class="container-fluid px-0">
-    <div class="d-flex justify-content-center align-items-center mb-4" style="background-image: url({{asset('img/catalogo/slide.jpg')}}); background-repeat: no-repeat; background-size: cover; background-position: center;height: 300px;">
+    {{-- <div class="d-flex justify-content-center align-items-center mb-4" style="background-image: url({{asset('img/catalogo/slide.jpg')}}); background-repeat: no-repeat; background-size: cover; background-position: center;height: 300px;">
+        <h2 class="text-white fw-bold" style="text-align: center; font-weight: lighter; font-size: 3.5rem;">Detalles del producto</h2> 
+    </div> --}}
+    <div class="d-flex justify-content-center align-items-center mb-4" style="background-color:slategrey; height: 300px;">
         <h2 class="text-white fw-bold" style="text-align: center; font-weight: lighter; font-size: 3.5rem;">Detalles del producto</h2> 
     </div>
     <div class="d-flex justify-content-center">

@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductOrder extends Model
 {
     use HasFactory;
-    protected $table = 'product';
+    protected $table = 'product_order';
     protected $primaryKey = 'id';
     protected $hidden = [
         'created_at', 'updated_at'
     ];
 
-    public function subcategory(){
-        return $this->belongsTo(Subcategory::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 
-    public function productorders(){
-        return $this->hasMany(ProductOrder::class);
+    public function generalorder(){
+        return $this->belongsTo(GeneralOrder::class);
     }
-
 }

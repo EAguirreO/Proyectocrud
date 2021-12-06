@@ -4,6 +4,7 @@
         {{auth()->user()->name}}
     </a>
     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="{{route('user.orders')}}">Mis pagos</a></li>
         <li><button class="dropdown-item" wire:click="logout"><i class="bi bi-power me-2"></i>Cerrar sesión</button></li>
     </ul>
 </div>

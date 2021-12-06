@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ViewProductController;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\Filtros;
 use App\Http\Livewire\ProductDetail;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\WebhooksController;
+use App\Http\Livewire\DetalleOrden;
+use App\Http\Livewire\UserOrders;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +31,21 @@ use Illuminate\Support\Facades\Route;
 //     return view('catalogo');
 // })->name('vistaCatalogo');
 
-Route::get('/catalogo', Filtros::class)->name('vistaCatalogo');
+Route::get('catalogo', Filtros::class)->name('vistaCatalogo');
 
 // Route::get('catalogo/producto/{id}', [ViewProductController::class, 'mostrarVista'])->name('vistaDetalleProducto');
-Route::get('/catalogo/producto/{id}', ProductDetail::class)->name('vistaDetalleProducto');
+Route::get('catalogo/producto/{id}', ProductDetail::class)->name('vistaDetalleProducto');
 
-Route::get('/cart', CartComponent::class)->name('product.cart');
-Route::get('/checkout', CheckoutComponent::class)->name('product.checkout');
+Route::get('cart', CartComponent::class)->name('product.cart');
+// Route::get('checkout', CheckoutComponent::class)->name('product.checkout');
+
+Route::get('orders', [OrderController::class, 'pay'])->name('orders.pay');
+
+Route::post('webhooks/{id}', WebhooksController::class);
+
+Route::get('myorders', UserOrders::class)->name('user.orders')->middleware('auth:sanctum');
+
+Route::get('myorders/{id}', DetalleOrden::class)->name('user.order.details')->middleware(['auth:sanctum', 'verify.user']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

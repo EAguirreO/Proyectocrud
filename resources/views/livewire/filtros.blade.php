@@ -19,7 +19,10 @@
         </div>
     @endif --}}
 
-    <div class="d-flex justify-content-center align-items-center mb-4" style="background-image: url({{asset('img/catalogo/slide.jpg')}}); background-repeat: no-repeat; background-size: cover; background-position: center;height: 300px;">
+    {{-- <div class="d-flex justify-content-center align-items-center mb-4" style="background-image: url({{asset('img/catalogo/slide.jpg')}}); background-repeat: no-repeat; background-size: cover; background-position: center;height: 300px;">
+        <h2 class="text-white fw-bold" style="text-align: center; font-weight: lighter; font-size: 3.5rem;">CATÁLOGO</h2> 
+    </div> --}}
+    <div class="d-flex justify-content-center align-items-center mb-4" style="background-color:slategrey; height: 300px;">
         <h2 class="text-white fw-bold" style="text-align: center; font-weight: lighter; font-size: 3.5rem;">CATÁLOGO</h2> 
     </div>
 
@@ -57,16 +60,16 @@
                         <img wire:click="redireccionarVistaProductoDetalle({{$item->id}})" src="{{asset($item->imagen)}}" class="card-img-top img-fluid" style="width: 100%; height: 15vw; object-fit: cover; cursor: pointer;" alt="">
                         <div class="card-body">
                             <div style="cursor: pointer;" wire:click="redireccionarVistaProductoDetalle({{$item->id}})">
-                                <h5 class="card-title">Nombre: {{$item->nombre}}</h5>
+                                <h5 class="card-title fw-bold fs-4">Nombre: {{$item->nombre}}</h5>
                                 <p class="card-text">Descripcion: {{$item->descripcion}}</p>
-                                <p class="card-text">Precio: {{$item->precio}}</p>
+                                <p class="card-text fw-bold fs-5">Precio: S/. {{$item->precio}}</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="card-text">Estado: {{$item->estado}}</p>
                                     <p class="card-text">Stock: {{$item->stock}}</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-danger" href="#" wire:click.prevent="store({{$item->id}}, '{{$item->nombre}}',{{$item->precio}})">Agregar al carrito</a>
+                                <a style="width: 100%" class="btn btn-danger" href="#" wire:click.prevent="store({{$item->id}}, '{{$item->nombre}}',{{$item->precio}})">Agregar al carrito <i class="bi bi-cart"></i></a>
                             </div>
                         </div>
                     </div>
@@ -96,12 +99,24 @@
                         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
                             @foreach ($productos as $producto)
                                 <div class="col" style="margin-bottom: 20px;">
-                                    <div class="card mx-auto" style="width: 100%; cursor: pointer;" wire:click="redireccionarVistaProductoDetalle({{$producto->id}})">
-                                        <img src="{{asset($producto->imagen)}}" class="card-img-top img-fluid" style="width: 100%; height: 15vw; object-fit: cover;" alt="">
+                                    <div class="card mx-auto" style="width: 100%;" >
+                                        <img wire:click="redireccionarVistaProductoDetalle({{$producto->id}})" src="{{asset($producto->imagen)}}" class="card-img-top img-fluid" style="width: 100%; height: 15vw; object-fit: cover; cursor: pointer;" alt="">
                                         <div class="card-body">
-                                            <h5 class="card-title">Nombre: {{$producto->nombre}}</h5>
+                                            {{-- <h5 class="card-title">Nombre: {{$producto->nombre}}</h5>
                                             <p class="card-text">Descripcion: {{$producto->descripcion}}</p>
-                                            <p class="card-text">Estado: {{$producto->estado}}</p>
+                                            <p class="card-text">Estado: {{$producto->estado}}</p> --}}
+                                            <div style="cursor: pointer;" wire:click="redireccionarVistaProductoDetalle({{$producto->id}})">
+                                                <h5 class="card-title fw-bold fs-4">Nombre: {{$producto->nombre}}</h5>
+                                                <p class="card-text">Descripcion: {{$producto->descripcion}}</p>
+                                                <p class="card-text fw-bold fs-5">Precio: S/. {{$producto->precio}}</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="card-text">Estado: {{$producto->estado}}</p>
+                                                    <p class="card-text">Stock: {{$producto->stock}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <a style="width: 100%" class="btn btn-danger" href="#" wire:click.prevent="store({{$producto->id}}, '{{$producto->nombre}}',{{$producto->precio}})">Agregar al carrito <i class="bi bi-cart"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

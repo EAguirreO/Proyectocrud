@@ -20,6 +20,7 @@
             // echo $product;
             $item = new MercadoPago\Item();
             $item->title = $product->model->nombre;
+            $item->id = $product->model->id;
             $item->quantity = $product->qty;
             $item->unit_price = $product->model->precio;
 
@@ -27,6 +28,13 @@
         }
 
         if(!empty($products)){
+
+            $preference->back_urls = array(
+                "success" => route('orders.pay'),
+                "failure" => "http://www.tu-sitio/failure",
+                "pending" => "http://www.tu-sitio/pending"
+            );
+            $preference->auto_return = "approved";
 
             $preference->items = $products;
             $preference->save();
@@ -73,14 +81,20 @@
                 </div>
             @endforeach
             <div class="d-flex justify-content-between mb-4">
-                <button class="btn btn-danger">Limpiar carrito</button>
-                @if (Auth::check())
+                <button class="btn btn-danger" wire:click.prevent="destroyAll()">Limpiar carrito</button>
+                @auth
+                {{-- @if (Auth::check()) --}}
                 <div class="cho-container">
                     
                 </div>
-                @else
-                    <a href="/login" class="btn btn-info text-white" style="background-color: #009ee3">Pagar</a>
-                @endif
+                    
+                @endauth
+                {{-- @else --}}
+                @guest
+                    
+                <a href="/login" class="btn btn-info text-white" style="background-color: #009ee3">Pagar</a>
+                {{-- @endif --}}
+                @endguest
             </div>
         @else
             <p>No hay productos en el carrito</p>
@@ -110,8 +124,13 @@
 
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 
+    @if(!empty($products))
+    
     <script>
-        if(!empty($products)){
+        
+    // Livewire.on('refrescarComponent' => {
+        console.log('asd');
+        // if($products){
         // Agrega credenciales de SDK
           const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
                 locale: 'es-PE'
@@ -129,7 +148,10 @@
               }
             });
         // }
-        }
+        // }
+
+    // })
 
     </script>
+    @endif
 </div>

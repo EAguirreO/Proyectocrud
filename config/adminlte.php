@@ -273,6 +273,11 @@ return [
             'url'         => 'admin/producto',
             'icon'        => 'far fa-fw fa-file',
         ],
+        [
+            'text'        => 'Órden',
+            'url'         => 'admin/orden',
+            'icon'        => 'far fa-fw fa-file',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
