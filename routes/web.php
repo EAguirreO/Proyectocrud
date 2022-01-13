@@ -39,7 +39,9 @@ Route::get('catalogo/producto/{id}', ProductDetail::class)->name('vistaDetallePr
 Route::get('cart', CartComponent::class)->name('product.cart');
 // Route::get('checkout', CheckoutComponent::class)->name('product.checkout');
 
-Route::get('orders', [OrderController::class, 'pay'])->name('orders.pay');
+Route::get('order/create')->name('create.order')->middleware('auth:sanctum');
+
+Route::get('orders', [OrderController::class, 'pay'])->name('orders.pay')->middleware('auth:sanctum');
 
 Route::post('webhooks/{id}', WebhooksController::class);
 

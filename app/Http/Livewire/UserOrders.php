@@ -32,4 +32,12 @@ class UserOrders extends Component
         // $this->dispatchBrowserEvent('abrirExampleModal');
         // $this->emitTo('actualizar', $this->idOrden);
     }
+
+    public function formatFecha($fechaOriginal){
+        $fechaEdit = substr($fechaOriginal, 0, 10);
+        $dia=substr($fechaEdit, 8, 2);
+        $mes=substr($fechaEdit, 5, 2);
+        $anio=substr($fechaEdit, 0, 4);
+        return $dia . '-' . $mes . '-' . $anio; 
+    }
 }

@@ -12,8 +12,8 @@
             @foreach ($ordenes as $item) 
                 <tr wire:click="actualizarId({{$item->id}})" style="cursor: pointer;">
                     <td>{{$item->codigo_compra}}</td>
-                    <td>{{$item->monto_total}}</td>
-                    <td>{{$item->fecha_compra}}</td>
+                    <td>S/. {{$item->monto_total}}</td>
+                    <td>{{$this->formatFecha($item->fecha_compra)}}</td>
                     {{-- <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" wire:click.prevent="actualizarId({{$item->id}})">Ver detalles</button></td> --}}
                 </tr>
             @endforeach

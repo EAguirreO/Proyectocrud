@@ -19,6 +19,9 @@ class CreateGeneralOrderTable extends Migration
             $table->string('fecha_compra');
             $table->decimal('monto_total');
             $table->string('codigo_compra');
+            $table->text('direccion');
+            $table->text('referencia');
+            $table->string('estado');
             $table->timestamps();
         });
     }

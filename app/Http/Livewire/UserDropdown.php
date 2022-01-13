@@ -16,7 +16,8 @@ class UserDropdown extends Component
     }
 
     public function logout(){
-        Auth::logout();
+        auth('web')->logout();
+        // Auth::logout();
         return redirect()->route('vistaCatalogo');
     }
 }

@@ -274,7 +274,7 @@ return [
             'icon'        => 'far fa-fw fa-file',
         ],
         [
-            'text'        => 'Órden',
+            'text'        => 'Órdenes',
             'url'         => 'admin/orden',
             'icon'        => 'far fa-fw fa-file',
         ],

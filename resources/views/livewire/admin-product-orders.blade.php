@@ -1,5 +1,7 @@
 <div>
-    <a href="{{route('admin.orders')}}" class="btn btn-outline-dark my-4 ms-2"><i class="bi bi-arrow-left me-3"></i>Regresar</a>
+    <a href="javascript:window.history.back()" class="btn btn-outline-dark my-4 ms-2"><i class="bi bi-arrow-left me-3"></i>Regresar</a>
+    {{-- javascript:window.history.back() {{route('admin.orders')}}--}}
+    {{-- <a wire:click.prevent="regresar" class="btn btn-outline-dark my-4 ms-2"><i class="bi bi-arrow-left me-3"></i>Regresar</a> --}}
     {{-- asdasd {{$id_Orden}} --}}
     <div wire:loading.delay>
         <div class="spinner-border text-primary" role="status">

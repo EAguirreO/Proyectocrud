@@ -19,10 +19,14 @@ class VerifyUserId
     {
         // dd($request->route('id'));
         $orden = GeneralOrder::where('id', $request->route('id'))->get();
-        if(auth()->user()->id == $orden[0]->id_usuario){
-            return $next($request);
+        if(!$orden->isEmpty()){
+            if(auth()->user()->id == $orden[0]->id_usuario){
+                return $next($request);
+            } else {
+                return redirect('myorders');
+            }
         } else {
-            return route('user.orders');
+            return redirect('myorders');
         }
     }
 }

@@ -43,16 +43,27 @@
     @endphp
     <div class="container">
         @if (Session::has('success_message'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success mt-2" role="alert">
                 {{Session::get('success_message')}}
             </div>
         @endif
         <h4 class="mt-4">Productos agregados al carrito</h4>
         @if (Cart::instance('cart')->count()>0)
-            @foreach (Cart::instance('cart')->content() as $item)
+            <table  id="carrito" class="table table-striped table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre del producto</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                        {{-- <th>Detalles</th> --}}
+                    </tr>
+                </thead>
                 
-                <div class="alert alert-secondary" role="alert">
-                    <table class="table table-borderless">
+                <tbody>
+                    @foreach (Cart::instance('cart')->content() as $item)
                         <tr valign="middle">
                             <td>
                                 <img src="{{asset($item->model->imagen)}}" width="100" height="100" alt="{{$item->model->nombre}}">
@@ -61,25 +72,25 @@
                                 <h5 class="asd">{{$item->model->nombre}}</h5>
                             </td>
                             <td>
-                                <h5>S/.{{$item->model->precio}}</h5>
+                                <h5>S/. {{$item->model->precio}}</h5>
                             </td>
                             <td>
                                 <div class="d-flex">
                                     <button style="width: 37px; height: 37px; border: 1px solid #c6c6c6; border-radius: 5px; display: flex; align-items: center; justify-content: center; " wire:click.prevent="decreaseQuantity('{{$item->rowId}}')">-</button>
-                                    <input style="width: 60px;" type="text" name="product-quatity" value="{{$item->qty}}" data-max="120" pattern="[0-9]*" >
+                                    <input style="width: 60px;" type="text" name="product-quatity" value="{{$item->qty}}" data-max="120" pattern="[0-9]*" disabled>
                                     <button style="width: 37px; height: 37px; border: 1px solid #c6c6c6; border-radius: 5px; display: flex; align-items: center; justify-content: center; " wire:click.prevent="increaseQuantity('{{$item->rowId}}')">+</button>
                                 </div>
                             </td>
                             <td>
-                                <h5>S/.{{$item->subtotal}}</h5>
+                                <h5>S/. {{$item->subtotal}}</h5>
                             </td>
                             <td>
                                 <button class="btn btn-danger" wire:click.prevent="destroy('{{$item->rowId}}')">X</button>
                             </td>
                         </tr>
-                    </table>
-                </div>
-            @endforeach
+                    @endforeach
+                </tbody>
+            </table>
             <div class="d-flex justify-content-between mb-4">
                 <button class="btn btn-danger" wire:click.prevent="destroyAll()">Limpiar carrito</button>
                 @auth
@@ -97,7 +108,7 @@
                 @endguest
             </div>
         @else
-            <p>No hay productos en el carrito</p>
+            <h5 class="text-danger">No hay productos en el carrito</h5>
         @endif
 
         <h4>Resumen del pedido</h4>
@@ -127,18 +138,34 @@
     @if(!empty($products))
     
     <script>
+        // window.addEventListener('contentChanged', event => {
+        // console.log('asd');
+        // // if($products){
+        // // Agrega credenciales de SDK
+        //   const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
+        //         locale: 'es-PE'
+        //   });
         
-    // Livewire.on('refrescarComponent' => {
-        console.log('asd');
-        // if($products){
-        // Agrega credenciales de SDK
-          const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
+        // // if(!isset($preference)){
+        //   // Inicializa el checkout
+        //   mp.checkout({
+        //       preference: {
+        //           id: '{{ $preference->id }}'
+        //       },
+        //       render: {
+        //             container: '.cho-container', // Indica el nombre de la clase donde se mostrará el botón de pago
+        //             label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+        //       }
+        //     });
+        // // }
+        // // }
+        // });
+
+        const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
                 locale: 'es-PE'
           });
-        
-        // if(!isset($preference)){
-          // Inicializa el checkout
-          mp.checkout({
+
+        mp.checkout({
               preference: {
                   id: '{{ $preference->id }}'
               },
@@ -147,10 +174,23 @@
                     label: 'Pagar', // Cambia el texto del botón de pago (opcional)
               }
             });
-        // }
-        // }
 
-    // })
+        window.addEventListener('contentChanged', event => {
+            const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
+                locale: 'es-PE'
+            });
+
+            mp.checkout({
+              preference: {
+                  id: '{{ $preference->id }}'
+              },
+              render: {
+                    container: '.cho-container', // Indica el nombre de la clase donde se mostrará el botón de pago
+                    label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+              }
+            });
+        });
+
 
     </script>
     @endif
