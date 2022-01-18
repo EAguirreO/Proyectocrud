@@ -30,9 +30,6 @@ class Filtros extends Component
 
     public $subcategorias = null;
 
-    public $departamentos, $provincias, $distritos;
-    public $selectedDepartamento = NULL, $selectedProvincia = NULL, $selectedDistrito = NULL;
-
     public function mount(){
         if($this->categoria != null){
             $aux = Category::where('slug', $this->categoria)->get();
@@ -45,9 +42,7 @@ class Filtros extends Component
             $aux2 = Subcategory::where('slug', $this->subcategoria)->get();
             $this->selectedSubcategory = $aux2[0]->id;
         }
-        $this->departamentos = Department::all();
-        $this->provincias = collect();
-        $this->distritos = collect();
+        
     }
 
     public function render()
@@ -84,24 +79,5 @@ class Filtros extends Component
     public function redireccionarVistaProductoDetalle($variable_id){
         return redirect()->route('vistaDetalleProducto', [$variable_id]);
     }
-
-    
-
-    public function updatedSelectedDepartamento($department_id){
-
-        $this->provincias = Province::where('departamento', $department_id)->get();
-        $this->selectedProvincia = NULL;
-       
-    }
-
-    public function updatedSelectedProvincia($provincia_id){
-        if(!is_null($provincia_id)){
-
-            $this->distritos = District::where('provincia', $provincia_id)->get();
-            $this->selectedDistrito = NULL;
-
-        }
-    }
-
 
 }

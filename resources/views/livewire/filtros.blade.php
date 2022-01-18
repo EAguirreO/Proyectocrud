@@ -141,29 +141,4 @@
 
     </div>
 
-    <div>
-        <select wire:model="selectedDepartamento" class="form-select">
-            <option value="" selected>Departamento</option>
-            @foreach ($departamentos as $departamento)
-                <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
-            @endforeach
-        </select>
-        @if (!is_null($selectedDepartamento))
-        <select wire:model="selectedProvincia" class="form-select">
-            <option value="" selected>Provincia</option>
-            @foreach ($provincias as $provincia)
-                <option value="{{$provincia->id}}">{{$provincia->nombre}}</option>
-            @endforeach
-        </select>
-        @endif
-        @if(!is_null($selectedProvincia))
-        <select wire:model="selectedDistrito" class="form-select">
-            <option value="" selected>Distrito</option>
-            @foreach ($distritos as $distrito)
-                <option value="{{$distrito->id}}">{{$distrito->nombre}}</option>
-            @endforeach
-        </select>
-        @endif
-    </div>
-
 </div>

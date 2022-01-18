@@ -21,6 +21,9 @@ class CreateGeneralOrderTable extends Migration
             $table->string('codigo_compra');
             $table->text('direccion');
             $table->text('referencia');
+            $table->foreignId('departamento');
+            $table->foreignId('provincia');
+            $table->foreignId('distrito');
             $table->string('estado');
             $table->timestamps();
         });

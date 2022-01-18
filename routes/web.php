@@ -9,6 +9,7 @@ use App\Http\Livewire\ProductDetail;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WebhooksController;
+use App\Http\Livewire\CreateOrder;
 use App\Http\Livewire\DetalleOrden;
 use App\Http\Livewire\UserOrders;
 
@@ -39,7 +40,7 @@ Route::get('catalogo/producto/{id}', ProductDetail::class)->name('vistaDetallePr
 Route::get('cart', CartComponent::class)->name('product.cart');
 // Route::get('checkout', CheckoutComponent::class)->name('product.checkout');
 
-Route::get('order/create')->name('create.order')->middleware('auth:sanctum');
+Route::get('order/create', CreateOrder::class)->name('create.order')->middleware('auth:sanctum');
 
 Route::get('orders', [OrderController::class, 'pay'])->name('orders.pay')->middleware('auth:sanctum');
 

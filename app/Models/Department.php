@@ -15,4 +15,8 @@ class Department extends Model
     public function provinces(){
         return $this->hasMany(Province::class);
     }
+
+    public function generalorders(){
+        return $this->hasMany(GeneralOrder::class);
+    }
 }

@@ -19,4 +19,8 @@ class Province extends Model
     public function districts(){
         return $this->hasMany(District::class);
     }
+
+    public function generalorders(){
+        return $this->hasMany(GeneralOrder::class);
+    }
 }

@@ -98,6 +98,8 @@
                 <div class="cho-container">
                     
                 </div>
+
+                <a class="btn btn-primary" href="{{route('create.order')}}">Continuar</a>
                     
                 @endauth
                 {{-- @else --}}
