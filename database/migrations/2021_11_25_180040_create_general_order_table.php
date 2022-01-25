@@ -16,9 +16,9 @@ class CreateGeneralOrderTable extends Migration
         Schema::create('general_order', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_usuario');
-            $table->string('fecha_compra');
-            $table->decimal('monto_total');
-            $table->string('codigo_compra');
+            $table->string('fecha_compra')->nullable();
+            $table->decimal('monto_total')->nullable();
+            $table->string('codigo_compra')->nullable();
             $table->text('direccion');
             $table->text('referencia');
             $table->foreignId('departamento');

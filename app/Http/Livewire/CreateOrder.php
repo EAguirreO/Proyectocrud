@@ -20,6 +20,11 @@ class CreateOrder extends Component
         'referencia' => 'required',
     ];
 
+    protected $messages = [
+        'direccion.required' => 'El campo dirección es requerido.',
+        'referencia.required' => 'El campo referencia es requerido.',
+    ];
+
     public function mount(){
         $this->departamentos = Department::all();
         $this->provincias = collect();
@@ -48,18 +53,41 @@ class CreateOrder extends Component
     }
 
     public function save(){
+        
         $this->validate();
 
-        GeneralOrder::create([
-            'direccion'=>$this->direccion,
-            'referencia'=>$this->referencia,
-            'departamento'=>$this->selectedDepartamento,
-            'provincia'=>$this->selectedProvincia,
-            'distrito'=>$this->selectedDistrito
-        ]);
+        $order_bd = GeneralOrder::where([['id_usuario', auth()->user()->id], ['estado','PENDIENTE']])->get();
 
-        $this->reset(['direccion', 'referencia']);
-        $this->emitTo('','');
+        if(count($order_bd) !== 0){
+            $aux = $order_bd[0];
+            $aux->direccion = $this->direccion;
+            $aux->referencia = $this->referencia;
+            $aux->departamento = $this->selectedDepartamento;
+            $aux->provincia = $this->selectedProvincia;
+            $aux->distrito = $this->selectedDistrito;
+            $aux->save();
+            $id_orden = $aux->id;
+            session(['id_orden' => $id_orden]);
+        } else {
+            $general_order = new GeneralOrder();
+            $general_order->id_usuario = auth()->user()->id;
+            $general_order->direccion = $this->direccion;
+            $general_order->referencia = $this->referencia;
+            $general_order->departamento = $this->selectedDepartamento;
+            $general_order->provincia = $this->selectedProvincia;
+            $general_order->distrito = $this->selectedDistrito;
+            $general_order->estado = 'PENDIENTE';
+            $general_order->save();
+            $id_orden = $general_order->id;
+            session(['id_orden' => $id_orden]);
+        }
+
+
+        $this->reset(['direccion', 'referencia', 'selectedDepartamento', 'selectedProvincia', 'selectedDistrito']);
+        $this->provincias = collect();
+        $this->distritos = collect();
+        
+        
     }
 
 }

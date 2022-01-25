@@ -10,6 +10,7 @@ class GeneralOrder extends Model
     use HasFactory;
     protected $table = 'general_order';
     protected $primaryKey = 'id';
+    protected $fillable = ['direccion', 'referencia', 'departamento', 'provincia', 'distrito', 'estado'];
     protected $hidden = [
         'created_at', 'updated_at'
     ];

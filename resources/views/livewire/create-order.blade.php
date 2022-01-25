@@ -1,16 +1,16 @@
-<div>
-    <div class="px-2">
+<div class="d-flex mt-2">
+    <div class="px-2" style="width: 70%;">
         <div class="mb-3">
             <label class="form-label" for="direccion">Dirección:</label>
             <input class="form-control" id="direccion" type="text" wire:model.defer="direccion" placeholder="Dirección">
-            @error($direccion)
+            @error('direccion')
             <span class="text-danger">{{$message}}</span>
             @enderror
         </div>
         <div class="mb-3">
             <label class="form-label" for="referencia">Referencia:</label>
             <input class="form-control" id="referencia" type="text" wire:model.defer="referencia" placeholder="Referencia">
-            @error($referencia)
+            @error('referencia')
             <span class="text-danger">{{$message}}</span>
             @enderror
         </div>
@@ -26,27 +26,39 @@
             </div>
             <div style="width: 30%;">
                 <label class="form-label" for="provincia">Provincia:</label>
-                @if (!is_null($selectedDepartamento))
+                {{-- @if (!is_null($selectedDepartamento)) --}}
                 <select id=provincia wire:model="selectedProvincia" class="form-select">
                     <option value="" selected>Provincia</option>
                     @foreach ($provincias as $provincia)
                         <option value="{{$provincia->id}}">{{$provincia->nombre}}</option>
                     @endforeach
                 </select>
-                @endif
+                {{-- @endif --}}
             </div>
             <div style="width: 30%;">
                 <label class="form-label" for="distrito">Distrito:</label>
-                @if(!is_null($selectedProvincia))
+                {{-- @if(!is_null($selectedProvincia)) --}}
                 <select id="distrito" wire:model="selectedDistrito" class="form-select">
                     <option value="" selected>Distrito</option>
                     @foreach ($distritos as $distrito)
                         <option value="{{$distrito->id}}">{{$distrito->nombre}}</option>
                     @endforeach
                 </select>
-                @endif
+                {{-- @endif --}}
             </div>
         </div>
-        <button class="btn btn-success" wire:click="save" wire:loading.attr="disabled" wire:target="save">Continuar</button>
+        {{-- <button class="btn btn-success" wire:click="save" wire:loading.attr="disabled" wire:target="save">Continuar</button> --}}
+    </div>
+    <div style="width: 30%;">
+        <h2 class="text-center">Resumen de la compra</h2>
+        <hr>
+        <p>Subtotal: S/. {{Cart::instance('cart')->subtotal()}}</p>
+        <p>Envío: S/. ...</p>
+        <hr>
+        <p>Total: S/. {{Cart::instance('cart')->subtotal()}}</p>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <button class="btn btn-success" wire:click="save" wire:loading.attr="disabled" wire:target="save">Finalizar compra</button>
+            <button class="btn btn-link">Regresar al carrito</button>
+        </div>
     </div>
 </div>
